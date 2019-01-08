@@ -15,14 +15,27 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Top Down"
+config/name="Spellblade"
 run/main_scene="res://levels/test level/TestLevel.tscn"
+boot_splash/image="res://icon.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=426
+window/size/height=240
 window/size/resizable=false
 window/size/test_width=1600
 window/size/test_height=900
@@ -103,6 +116,11 @@ attack={
 2d_physics/layer_3="walls"
 2d_physics/layer_4="coins"
 
+[physics]
+
+common/physics_fps=144
+
 [rendering]
 
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.403922, 0.313726, 0.286275, 1 )

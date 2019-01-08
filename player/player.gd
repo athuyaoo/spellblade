@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var side = "front_"
+var side = "down_"
 
 
 func _ready():
