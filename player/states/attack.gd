@@ -16,7 +16,7 @@ func update(delta):
 
 func attack_dash():
 	var tween = owner.get_node("Tween")
-	tween.interpolate_property(self, "speed", 300, 0, 0.07,
+	tween.interpolate_property(self, "speed", 300, 0, 0.05,
 			Tween.TRANS_QUINT,Tween.EASE_IN)
 	tween.start()
 	yield(tween, "tween_completed")

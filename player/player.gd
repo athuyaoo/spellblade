@@ -5,7 +5,7 @@ var side = "down_"
 
 func _ready():
 	# Register event to monitor if joystick connected or disconnected
-	Input.connect("joy_connection_changed",self,"joy_con_changed")
+	Input.connect("joy_connection_changed", self,"joy_con_changed")
 
 
 func joy_con_changed(deviceid,isConnected):

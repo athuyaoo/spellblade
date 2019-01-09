@@ -1,7 +1,8 @@
 extends "res://player/states/passive/passive.gd"
 
 const ANIMATION = "walk"
-export(int) var MAX_SPEED = 70
+export(int) var MAX_SPEED = 120
+export(float) var START_TIME = 0.4
 var speed
 
 func enter():
@@ -21,6 +22,6 @@ func update(_delta):
 
 func accelerate():
 	var tween = owner.get_node("Tween")
-	tween.interpolate_property(self, "speed", 0, MAX_SPEED, 0.2,
+	tween.interpolate_property(self, "speed", 0, MAX_SPEED, START_TIME,
 			Tween.TRANS_CUBIC,Tween.EASE_OUT)
 	tween.start()

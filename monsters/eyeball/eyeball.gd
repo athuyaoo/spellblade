@@ -3,22 +3,21 @@ extends KinematicBody2D
 
 enum {IDLE, ATTACK, MOVE, JUMP, PURSUE, SHIFT, WANDER, HURT, DIE}
 
-var max_speed = 150
+var max_speed = 100
 var max_force = 0.1
 
 onready var player = $"../Player"
 onready var anim_player = $AnimationPlayer
 
+
+var speed = 0
+var push_direction
 var destination
-var player_position
-var state
+var state = IDLE
 var velocity = Vector2()
 var attack_count = 0
 var jump_position
 var attack_range = 40
-
-func _ready():
-	_change_state(MOVE) if player != null else _change_state(IDLE)
 
 func _change_state(new_state):
 	match new_state:
@@ -36,7 +35,13 @@ func _change_state(new_state):
 			anim_player.play("attack")
 			attack_count = 0
 			get_attack_angle(player)
+		HURT:
+			push_direction = (global_position - player.position).normalized()
+			$Position2D/Laser/AttackEffect.modulate.a = 0
+			anim_player.play("hurt")
+			push()
 	state = new_state
+	
 
 func _physics_process(delta):
 	if not player:
@@ -45,9 +50,12 @@ func _physics_process(delta):
 		return
 	var current_state = state
 	match current_state:
+		IDLE:
+			if position.distance_to(player.position) < 50:
+				_change_state(MOVE)
 		MOVE:
-#			if player.position.distance_to(destination) > 30:
-#				new_destination(player)
+			if player.position.distance_to(destination) > 30:
+				new_destination(player)
 			if position.distance_to(destination) < 20:
 				_change_state(ATTACK)
 			velocity = follow(destination) + flock()
@@ -58,6 +66,8 @@ func _physics_process(delta):
 				_change_state(ATTACK)
 			velocity = follow(destination)
 			move_and_slide(velocity)
+		HURT:
+			move_and_slide(push_direction * speed)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
@@ -69,6 +79,16 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		else:
 			anim_player.play("attack")
 			get_attack_angle(player)
+	if anim_name == "hurt":
+		_change_state(MOVE)
+
+func push():
+	var tween = get_node("Tween")
+	tween.interpolate_property(self, "speed", 20, 0, 0.5,
+			Tween.TRANS_QUINT,Tween.EASE_IN)
+	tween.start()
+	yield(tween, "tween_completed")
+	speed = 0
 
 # Finds a random spot past the player
 func new_destination(target):
@@ -104,7 +124,7 @@ func follow(destination):
 		desired_velocity *= (distance_to_target / 50)*0.9 + 0.1
 	var steer_force = (desired_velocity - velocity)
 	var target_velocity = (velocity + steer_force/5)
-	return target_velocity
+	return target_velocity.clamped(max_speed)
 
 func get_attack_angle(body):
 	var attack_angle = (body.position-position).angle()
@@ -159,3 +179,7 @@ func flock():
 	var velocity = separation
 	velocity = velocity.normalized() * max_speed * 0.1
 	return velocity
+
+func _on_Hitbox_area_entered(area):
+	if area.owner == player and area.name == "Attack":
+		_change_state(HURT)

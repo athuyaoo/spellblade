@@ -1,17 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://monsters/eyeball/eyeball.gd" type="Script" id=1]
 [ext_resource path="res://monsters/eyeball/shadow.png" type="Texture" id=2]
 [ext_resource path="res://monsters/eyeball/sprite.png" type="Texture" id=3]
 [ext_resource path="res://monsters/eyeball/attack effect.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-
-extents = Vector2( 18, 3 )
-
 [sub_resource type="CircleShape2D" id=2]
 
 radius = 5.0
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 18, 3 )
 
 [sub_resource type="Animation" id=3]
 
@@ -40,6 +40,23 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "hurt"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 12, 11, 12, 13, 12, 11, 12, 13, 12 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -94,13 +111,18 @@ texture = ExtResource( 2 )
 texture = ExtResource( 3 )
 vframes = 5
 hframes = 4
-frame = 10
+frame = 12
+
+[node name="Hitbox" type="Area2D" parent="Position2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Position2D/Hitbox"]
+shape = SubResource( 2 )
 
 [node name="Laser" type="Area2D" parent="Position2D"]
 z_index = 1
 
 [node name="AttackEffect" type="Sprite" parent="Position2D/Laser"]
-modulate = Color( 0.054902, 0.403922, 0.92549, 0 )
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 23.4711, 0.0144806 )
 rotation = 1.5708
 scale = Vector2( 3.21276, 2.31545 )
@@ -111,11 +133,11 @@ position = Vector2( 23, 0 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 3 )
+anims/hurt = SubResource( 6 )
 anims/idle = SubResource( 4 )
 anims/move = SubResource( 5 )
 
@@ -123,4 +145,5 @@ anims/move = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="area_entered" from="Position2D/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
