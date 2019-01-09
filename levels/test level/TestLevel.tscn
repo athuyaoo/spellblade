@@ -3,7 +3,7 @@
 [ext_resource path="res://tilesets/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://monsters/eyeball/Eyeball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://player/camera2d.gd" type="Script" id=4]
 
 [node name="TestLevel" type="Node"]
 

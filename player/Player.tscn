@@ -1,14 +1,15 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/sprite.png" type="Texture" id=2]
-[ext_resource path="res://player/trail.gd" type="Script" id=3]
-[ext_resource path="res://player/states/state_machine.gd" type="Script" id=4]
-[ext_resource path="res://player/states/passive/passive.gd" type="Script" id=5]
-[ext_resource path="res://player/states/passive/move.gd" type="Script" id=6]
-[ext_resource path="res://player/states/passive/idle.gd" type="Script" id=7]
-[ext_resource path="res://player/states/dash.gd" type="Script" id=8]
-[ext_resource path="res://player/states/attack.gd" type="Script" id=9]
+[ext_resource path="res://player/footstep.wav" type="AudioStream" id=3]
+[ext_resource path="res://player/trail.gd" type="Script" id=4]
+[ext_resource path="res://player/states/state_machine.gd" type="Script" id=5]
+[ext_resource path="res://player/states/passive/passive.gd" type="Script" id=6]
+[ext_resource path="res://player/states/passive/move.gd" type="Script" id=7]
+[ext_resource path="res://player/states/passive/idle.gd" type="Script" id=8]
+[ext_resource path="res://player/states/dash.gd" type="Script" id=9]
+[ext_resource path="res://player/states/attack.gd" type="Script" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -74,8 +75,9 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 
 resource_name = "down_walk"
-length = 0.4
+length = 0.6
 loop = true
+step = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:frame")
 tracks/0/interp = 1
@@ -83,10 +85,28 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 8, 9, 10, 11 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0, 0.3 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -149,8 +169,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 
-length = 0.4
+length = 0.6
 loop = true
+step = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:frame")
 tracks/0/interp = 1
@@ -158,10 +179,28 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 12, 13, 14, 15 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0, 0.3 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -224,8 +263,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=9]
 
-length = 0.4
+length = 0.6
 loop = true
+step = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:frame")
 tracks/0/interp = 1
@@ -233,10 +273,28 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 16, 17, 18, 19 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0, 0.3 )
 }
 
 [sub_resource type="RectangleShape2D" id=10]
@@ -259,12 +317,13 @@ position = Vector2( 1, 2 )
 texture = ExtResource( 2 )
 vframes = 11
 hframes = 4
-frame = 27
+frame = 11
 region_rect = Rect2( 218, 24, 12, 14 )
 
 [node name="Attack" type="Area2D" parent="Pivot"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pivot/Attack"]
+visible = false
 polygon = PoolVector2Array( 6, -5, 7, -5, 17, -5, 22, -2, 22, 3, 20, 5, 16, 6, 9, 6, -1, 6, 6, -1 )
 disabled = true
 
@@ -280,6 +339,7 @@ anims/up_idle = SubResource( 8 )
 anims/up_walk = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 6 )
 shape = SubResource( 10 )
 
@@ -287,7 +347,7 @@ shape = SubResource( 10 )
 playback_process_mode = 0
 
 [node name="Trail" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 trail_length = 20
 
 [node name="Line2D" type="Line2D" parent="Trail"]
@@ -296,28 +356,32 @@ gradient = SubResource( 11 )
 joint_mode = 1
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 START_STATE = NodePath("Passive/Idle")
 
 [node name="Passive" type="Node" parent="StateMachine"]
-script = ExtResource( 5 )
-
-[node name="Move" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 6 )
 
-[node name="Idle" type="Node" parent="StateMachine/Passive"]
+[node name="Move" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 7 )
 
-[node name="Dash" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 8 )
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource( 9 )
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
 
 [node name="ControlText" type="RichTextLabel" parent="."]
 margin_left = -22.0
 margin_top = -47.0
 margin_right = 18.0
 margin_bottom = -7.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_finished"]

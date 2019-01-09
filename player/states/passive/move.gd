@@ -15,8 +15,11 @@ func update(_delta):
 	var move_direction = get_movement_direction()
 	if not move_direction:
 		emit_signal("finished", "idle")
+	#if the side changes, position of the walk animation does not change
 	if owner.update_side(move_direction):
+		var current_position = owner.get_node("AnimationPlayer").current_animation_position
 		owner.animate(owner.side + ANIMATION)
+		owner.get_node("AnimationPlayer").seek(current_position)
 	var velocity = move_direction.normalized() * speed
 	owner.move_and_slide(velocity)
 
