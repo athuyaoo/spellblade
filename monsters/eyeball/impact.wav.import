@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/impact.wav-e20b40e13b620ea58b53e8a19de7ef02.sample"
+
+[deps]
+
+source_file="res://monsters/eyeball/impact.wav"
+dest_files=[ "res://.import/impact.wav-e20b40e13b620ea58b53e8a19de7ef02.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

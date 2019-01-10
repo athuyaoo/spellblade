@@ -18,6 +18,10 @@ var velocity = Vector2()
 var attack_count = 0
 var jump_position
 var attack_range = 40
+var health = 2
+
+func _ready():
+	_change_state(IDLE)
 
 func _change_state(new_state):
 	match new_state:
@@ -84,7 +88,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func push():
 	var tween = get_node("Tween")
-	tween.interpolate_property(self, "speed", 20, 0, 0.5,
+	tween.interpolate_property(self, "speed", 100, 0, 0.1,
 			Tween.TRANS_QUINT,Tween.EASE_IN)
 	tween.start()
 	yield(tween, "tween_completed")

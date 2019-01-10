@@ -4,6 +4,7 @@ var side = "down_"
 
 
 func _ready():
+	$"Pivot/Attack/CollisionPolygon2D".disabled = true
 	# Register event to monitor if joystick connected or disconnected
 	Input.connect("joy_connection_changed", self,"joy_con_changed")
 

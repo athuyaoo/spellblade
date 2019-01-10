@@ -3,6 +3,7 @@ extends "state.gd"
 var attack_direction = Vector2()
 const ANIMATION = "attack"
 var speed = 0
+onready var move_speed = get_node("../Passive/Move").MAX_SPEED
 
 func enter():
 	attack_direction = (owner.get_global_mouse_position() 
@@ -16,11 +17,9 @@ func update(delta):
 
 func attack_dash():
 	var tween = owner.get_node("Tween")
-	tween.interpolate_property(self, "speed", 300, 0, 0.05,
+	tween.interpolate_property(self, "speed", move_speed , 0, 0.1,
 			Tween.TRANS_QUINT,Tween.EASE_IN)
 	tween.start()
-	yield(tween, "tween_completed")
-	speed = 0
 
 func _on_animation_finished(anim_name):
 	emit_signal("finished", "previous")
