@@ -1,29 +1,29 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://monsters/eyeball/eyeball.gd" type="Script" id=1]
-[ext_resource path="res://monsters/eyeball/shadow.png" type="Texture" id=2]
-[ext_resource path="res://monsters/eyeball/sprite.png" type="Texture" id=3]
-[ext_resource path="res://monsters/eyeball/attack effect.png" type="Texture" id=4]
-[ext_resource path="res://BitPotion.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Bitty.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://monsters/eyeball/shadow.png" type="Texture" id=3]
+[ext_resource path="res://monsters/eyeball/sprite.png" type="Texture" id=4]
+[ext_resource path="res://monsters/eyeball/attack effect.png" type="Texture" id=5]
 [ext_resource path="res://monsters/eyeball/fire_laser.wav" type="AudioStream" id=6]
-[ext_resource path="res://monsters/eyeball/impact.wav" type="AudioStream" id=7]
-[ext_resource path="res://monsters/eyeball/footstep.wav" type="AudioStream" id=8]
+[ext_resource path="res://monsters/eyeball/death.wav" type="AudioStream" id=7]
+[ext_resource path="res://monsters/eyeball/impact.wav" type="AudioStream" id=8]
+[ext_resource path="res://monsters/eyeball/footstep.wav" type="AudioStream" id=9]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="DynamicFont" id=1]
+
+font_data = ExtResource( 2 )
+
+[sub_resource type="CircleShape2D" id=2]
 
 radius = 5.0
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 
 extents = Vector2( 18, 3 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="Animation" id=4]
 
-font_data = ExtResource( 5 )
-
-[sub_resource type="Animation" id=3]
-
-resource_name = "attack"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position2D/Sprite:frame")
 tracks/0/interp = 1
@@ -87,9 +87,87 @@ tracks/4/keys = {
 "values": [ -10.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
-resource_name = "hurt"
+resource_name = "die"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 15, 16, 17, 18 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Position2D/Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.317647, 0.317647, 0.317647, 0.52549 ) ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("SFX")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.458018,
+"start_offset": 0.0,
+"stream": ExtResource( 7 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SFX:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.5 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SFX:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -5.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Position2D/Shadow:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=6]
+
 length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position2D/Sprite:frame")
@@ -113,7 +191,7 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 7 )
+"stream": ExtResource( 8 )
 } ],
 "times": PoolRealArray( 0 )
 }
@@ -130,7 +208,7 @@ tracks/2/keys = {
 "values": [ 1.2 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 
 length = 1.1
 loop = true
@@ -147,12 +225,12 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="AudioStreamRandomPitch" id=7]
+[sub_resource type="AudioStreamRandomPitch" id=8]
 
-audio_stream = ExtResource( 8 )
+audio_stream = ExtResource( 9 )
 random_pitch = 2.0
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 
 length = 0.6
 loop = true
@@ -179,19 +257,19 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 7 )
+"stream": SubResource( 8 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 7 )
+"stream": SubResource( 8 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 7 )
+"stream": SubResource( 8 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 7 )
+"stream": SubResource( 8 )
 } ],
 "times": PoolRealArray( 0, 0.15, 0.3, 0.45 )
 }
@@ -221,28 +299,39 @@ tracks/3/keys = {
 }
 
 [node name="Eyeball" type="KinematicBody2D" groups=[
-"enemy",
 "eyeball",
+"enemy",
 ]]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource( 1 )
 
+[node name="Health" type="Label" parent="."]
+margin_left = -10.0
+margin_top = -18.0
+margin_right = 10.0
+margin_bottom = -5.0
+custom_fonts/font = SubResource( 1 )
+text = "23"
+align = 1
+
 [node name="Position2D" type="Position2D" parent="."]
 
 [node name="Shadow" type="Sprite" parent="Position2D"]
-texture = ExtResource( 2 )
+modulate = Color( 0.364706, 0.364706, 0.364706, 1 )
+texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Position2D"]
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 5
 hframes = 4
-frame = 10
+frame = 14
 
 [node name="Hitbox" type="Area2D" parent="Position2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Position2D/Hitbox"]
-shape = SubResource( 1 )
+visible = false
+shape = SubResource( 2 )
 
 [node name="Laser" type="Area2D" parent="Position2D"]
 z_index = 1
@@ -252,41 +341,34 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 23.4711, 0.0144806 )
 rotation = 1.5708
 scale = Vector2( 3.21276, 2.31545 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Position2D/Laser"]
 position = Vector2( 23, 0 )
-shape = SubResource( 2 )
-
-[node name="Label" type="Label" parent="Position2D"]
-margin_left = -10.0
-margin_top = -18.0
-margin_right = 11.0
-margin_bottom = -5.0
-custom_fonts/font = SubResource( 8 )
-text = "1"
-align = 1
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+visible = false
+shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 3 )
-anims/hurt = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/move = SubResource( 6 )
+anims/attack = SubResource( 4 )
+anims/die = SubResource( 5 )
+anims/hurt = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/move = SubResource( 9 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
-volume_db = -10.0
-pitch_scale = 3.0
+stream = ExtResource( 7 )
+volume_db = -5.0
+pitch_scale = 1.5
 attenuation = 5.46417
 
 [connection signal="area_entered" from="Position2D/Hitbox" to="." method="_on_Hitbox_area_entered"]

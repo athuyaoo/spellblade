@@ -6,6 +6,7 @@ enum {IDLE, ATTACK, MOVE, JUMP, PURSUE, SHIFT, WANDER, HURT, DIE}
 var max_speed = 100
 var max_force = 0.1
 
+onready var health_label = $Health
 onready var player = $"../Player"
 onready var anim_player = $AnimationPlayer
 
@@ -21,6 +22,7 @@ var attack_range = 40
 var health = 2
 
 func _ready():
+	health_label.text = str(health)
 	_change_state(IDLE)
 
 func _change_state(new_state):
@@ -44,6 +46,17 @@ func _change_state(new_state):
 			$Position2D/Laser/AttackEffect.modulate.a = 0
 			anim_player.play("hurt")
 			push()
+		DIE:
+			push_direction = (global_position - player.position).normalized()
+			$Position2D/Laser/AttackEffect.modulate.a = 0
+			$Position2D/Hitbox.set_deferred("monitoring",false)
+			anim_player.play("die")
+			add_collision_exception_with(player)
+			health_label.visible = false
+			z_index = -1
+			push()
+
+			
 	state = new_state
 	
 
@@ -70,7 +83,7 @@ func _physics_process(delta):
 				_change_state(ATTACK)
 			velocity = follow(destination)
 			move_and_slide(velocity)
-		HURT:
+		HURT, DIE:
 			move_and_slide(push_direction * speed)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -91,8 +104,6 @@ func push():
 	tween.interpolate_property(self, "speed", 100, 0, 0.1,
 			Tween.TRANS_QUINT,Tween.EASE_IN)
 	tween.start()
-	yield(tween, "tween_completed")
-	speed = 0
 
 # Finds a random spot past the player
 func new_destination(target):
@@ -186,4 +197,11 @@ func flock():
 
 func _on_Hitbox_area_entered(area):
 	if area.owner == player and area.name == "Attack":
-		_change_state(HURT)
+		health -= 1
+		health_label.text = str(health)
+		if health > 0:
+			_change_state(HURT)
+		elif state != DIE:
+			_change_state(DIE)
+
+		

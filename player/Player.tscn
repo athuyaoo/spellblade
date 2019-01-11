@@ -99,13 +99,12 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1 ]
 }
 
-[sub_resource type="AudioStreamRandomPitch" id=12]
+[sub_resource type="AudioStreamRandomPitch" id=3]
 
 audio_stream = ExtResource( 4 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource_name = "down_walk"
 length = 0.6
 loop = true
 step = 0.15
@@ -143,16 +142,16 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=5]
 
 resource_name = "hurt"
 tracks/0/type = "value"
@@ -168,7 +167,7 @@ tracks/0/keys = {
 "values": [ 32, 33, 34 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
 length = 0.35
 step = 0.05
@@ -235,7 +234,7 @@ tracks/4/keys = {
 "values": [ -10.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 
 length = 0.1
 loop = true
@@ -252,7 +251,7 @@ tracks/0/keys = {
 "values": [ 39 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 
 length = 0.6
 loop = true
@@ -291,16 +290,16 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 
 length = 0.35
 step = 0.05
@@ -367,9 +366,8 @@ tracks/4/keys = {
 "values": [ -10.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 
-resource_name = "up_idle"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:frame")
@@ -384,7 +382,7 @@ tracks/0/keys = {
 "values": [ 43 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 
 length = 0.6
 loop = true
@@ -423,20 +421,20 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 12 )
+"stream": SubResource( 3 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=12]
 
 extents = Vector2( 4, 3 )
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=13]
 
 colors = PoolColorArray( 0, 0, 0, 0, 1, 0, 0, 1 )
 
@@ -468,17 +466,17 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/down_attack = SubResource( 1 )
 anims/down_idle = SubResource( 2 )
-anims/down_walk = SubResource( 3 )
-anims/hurt = SubResource( 13 )
-anims/side_attack = SubResource( 4 )
-anims/side_idle = SubResource( 5 )
-anims/side_walk = SubResource( 6 )
-anims/up_attack = SubResource( 7 )
-anims/up_idle = SubResource( 8 )
-anims/up_walk = SubResource( 9 )
+anims/down_walk = SubResource( 4 )
+anims/hurt = SubResource( 5 )
+anims/side_attack = SubResource( 6 )
+anims/side_idle = SubResource( 7 )
+anims/side_walk = SubResource( 8 )
+anims/up_attack = SubResource( 9 )
+anims/up_idle = SubResource( 10 )
+anims/up_walk = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
+shape = SubResource( 12 )
 
 [node name="Tween" type="Tween" parent="."]
 playback_process_mode = 0
@@ -489,7 +487,7 @@ trail_length = 20
 
 [node name="Line2D" type="Line2D" parent="Trail"]
 width = 5.0
-gradient = SubResource( 11 )
+gradient = SubResource( 13 )
 joint_mode = 1
 
 [node name="StateMachine" type="Node" parent="."]
