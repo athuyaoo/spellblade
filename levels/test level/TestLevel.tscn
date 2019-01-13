@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://tilesets/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://monsters/eyeball/Eyeball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/camera2d.gd" type="Script" id=4]
+[ext_resource path="res://player/camera/CameraPosition.gd" type="Script" id=4]
+[ext_resource path="res://2.png" type="Texture" id=5]
 
 [node name="TestLevel" type="Node"]
 
@@ -29,13 +30,25 @@ position = Vector2( -118.918, 6.51604 )
 position = Vector2( -13.0321, 69.2329 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( 188.452, 39.1135 )
+position = Vector2( 197.949, 40.6556 )
 
-[node name="Camera2D" type="Camera2D" parent="YSort/Player"]
+[node name="CameraPosition" type="Position2D" parent="YSort/Player"]
+editor/display_folded = true
+script = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="YSort/Player/CameraPosition"]
 current = true
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 smoothing_enabled = true
-smoothing_speed = 15.0
-script = ExtResource( 4 )
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+editor_draw_drag_margin = true
+
+[node name="Sprite" type="Sprite" parent="YSort/Player/CameraPosition"]
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 15, 15, 3, 3 )
 
