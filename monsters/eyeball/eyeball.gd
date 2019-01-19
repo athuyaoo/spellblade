@@ -1,4 +1,3 @@
-
 extends KinematicBody2D
 
 enum {IDLE, ATTACK, MOVE, JUMP, PURSUE, SHIFT, WANDER, HURT, DIE}
@@ -99,6 +98,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "hurt":
 		_change_state(MOVE)
 
+# Makes the eyeball dash a bit
 func push():
 	var tween = get_node("Tween")
 	tween.interpolate_property(self, "speed", 100, 0, 0.1,
@@ -203,5 +203,3 @@ func _on_Hitbox_area_entered(area):
 			_change_state(HURT)
 		elif state != DIE:
 			_change_state(DIE)
-
-		

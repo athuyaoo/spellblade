@@ -39,7 +39,7 @@ func _on_animation_finished(anim_name):
 func _change_state(state_name):
 	if state_name in ["dash", "attack"]:
 		states_stack.push_front(states_map[state_name])
-	current_state.exit()
+	current_state.exit() 
 	
 	# updates the state stack
 	if state_name == "previous":

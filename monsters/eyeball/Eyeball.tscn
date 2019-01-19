@@ -299,8 +299,8 @@ tracks/3/keys = {
 }
 
 [node name="Eyeball" type="KinematicBody2D" groups=[
-"eyeball",
 "enemy",
+"eyeball",
 ]]
 collision_layer = 2
 collision_mask = 7

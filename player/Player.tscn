@@ -1,16 +1,17 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/sprite.png" type="Texture" id=2]
-[ext_resource path="res://player/whoosh_swish_small_01.wav" type="AudioStream" id=3]
-[ext_resource path="res://player/footstep.wav" type="AudioStream" id=4]
-[ext_resource path="res://player/trail.gd" type="Script" id=5]
-[ext_resource path="res://player/states/state_machine.gd" type="Script" id=6]
-[ext_resource path="res://player/states/passive/passive.gd" type="Script" id=7]
-[ext_resource path="res://player/states/passive/move.gd" type="Script" id=8]
-[ext_resource path="res://player/states/passive/idle.gd" type="Script" id=9]
-[ext_resource path="res://player/states/dash.gd" type="Script" id=10]
-[ext_resource path="res://player/states/attack.gd" type="Script" id=11]
+[ext_resource path="res://player/sword.wav" type="AudioStream" id=3]
+[ext_resource path="res://player/dash.wav" type="AudioStream" id=4]
+[ext_resource path="res://player/footstep.wav" type="AudioStream" id=5]
+[ext_resource path="res://player/trail.gd" type="Script" id=6]
+[ext_resource path="res://player/states/state_machine.gd" type="Script" id=7]
+[ext_resource path="res://player/states/passive/passive.gd" type="Script" id=8]
+[ext_resource path="res://player/states/passive/move.gd" type="Script" id=9]
+[ext_resource path="res://player/states/passive/idle.gd" type="Script" id=10]
+[ext_resource path="res://player/states/dash.gd" type="Script" id=11]
+[ext_resource path="res://player/states/attack.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -82,7 +83,61 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=2]
 
-resource_name = "down_idle"
+resource_name = "down_dash"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 23 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SFX:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SFX:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -15.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+
 length = 1.4
 loop = true
 step = 0.01
@@ -99,11 +154,11 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1 ]
 }
 
-[sub_resource type="AudioStreamRandomPitch" id=3]
+[sub_resource type="AudioStreamRandomPitch" id=4]
 
-audio_stream = ExtResource( 4 )
+audio_stream = ExtResource( 5 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
 length = 0.6
 loop = true
@@ -142,18 +197,17 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource_name = "hurt"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:frame")
 tracks/0/interp = 1
@@ -167,7 +221,7 @@ tracks/0/keys = {
 "values": [ 32, 33, 34 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 0.35
 step = 0.05
@@ -234,7 +288,62 @@ tracks/4/keys = {
 "values": [ -10.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
+
+resource_name = "side_dash"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 27 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SFX:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SFX:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -15.0 ]
+}
+
+[sub_resource type="Animation" id=9]
 
 length = 0.1
 loop = true
@@ -251,7 +360,7 @@ tracks/0/keys = {
 "values": [ 39 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 
 length = 0.6
 loop = true
@@ -290,16 +399,16 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 
 length = 0.35
 step = 0.05
@@ -366,7 +475,63 @@ tracks/4/keys = {
 "values": [ -10.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
+
+resource_name = "up_dash"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 31 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("SFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SFX:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SFX:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -15.0 ]
+}
+
+[sub_resource type="Animation" id=13]
 
 length = 0.1
 tracks/0/type = "value"
@@ -382,7 +547,7 @@ tracks/0/keys = {
 "values": [ 43 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=14]
 
 length = 0.6
 loop = true
@@ -421,20 +586,20 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource( 3 )
+"stream": SubResource( 4 )
 } ],
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=15]
 
 extents = Vector2( 4, 3 )
 
-[sub_resource type="Gradient" id=13]
+[sub_resource type="Gradient" id=16]
 
 colors = PoolColorArray( 0, 0, 0, 0, 1, 0, 0, 1 )
 
@@ -451,7 +616,7 @@ position = Vector2( 1, -4 )
 texture = ExtResource( 2 )
 vframes = 11
 hframes = 4
-frame = 29
+frame = 31
 region_rect = Rect2( 218, 24, 12, 14 )
 
 [node name="Attack" type="Area2D" parent="Pivot"]
@@ -462,53 +627,57 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pivot/Attack"]
 polygon = PoolVector2Array( -9, 2, -9, -10, -8, -14, -4, -18, 4, -18, 8, -14, 10, -8, 10, 1, 7, 3 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/down_attack = SubResource( 1 )
-anims/down_idle = SubResource( 2 )
-anims/down_walk = SubResource( 4 )
-anims/hurt = SubResource( 5 )
-anims/side_attack = SubResource( 6 )
-anims/side_idle = SubResource( 7 )
-anims/side_walk = SubResource( 8 )
-anims/up_attack = SubResource( 9 )
-anims/up_idle = SubResource( 10 )
-anims/up_walk = SubResource( 11 )
+anims/down_dash = SubResource( 2 )
+anims/down_idle = SubResource( 3 )
+anims/down_walk = SubResource( 5 )
+anims/hurt = SubResource( 6 )
+anims/side_attack = SubResource( 7 )
+anims/side_dash = SubResource( 8 )
+anims/side_idle = SubResource( 9 )
+anims/side_walk = SubResource( 10 )
+anims/up_attack = SubResource( 11 )
+anims/up_dash = SubResource( 12 )
+anims/up_idle = SubResource( 13 )
+anims/up_walk = SubResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
-shape = SubResource( 12 )
+shape = SubResource( 15 )
 
 [node name="Tween" type="Tween" parent="."]
 playback_process_mode = 0
 
 [node name="Trail" type="Node" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 trail_length = 20
 
 [node name="Line2D" type="Line2D" parent="Trail"]
 width = 5.0
-gradient = SubResource( 13 )
+gradient = SubResource( 16 )
 joint_mode = 1
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 START_STATE = NodePath("Passive/Idle")
 
 [node name="Passive" type="Node" parent="StateMachine"]
-script = ExtResource( 7 )
-
-[node name="Move" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 8 )
 
-[node name="Idle" type="Node" parent="StateMachine/Passive"]
+[node name="Move" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 9 )
 
-[node name="Dash" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine/Passive"]
 script = ExtResource( 10 )
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
 
 [node name="ControlText" type="RichTextLabel" parent="."]
 margin_left = -22.0

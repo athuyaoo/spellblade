@@ -1,4 +1,4 @@
-extends "state.gd"
+extends State
 
 var attack_direction = Vector2()
 const ANIMATION = "attack"
